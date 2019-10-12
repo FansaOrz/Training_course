@@ -320,14 +320,14 @@ class find_my_mate():
         if not os.path.exists('./audio_record'):
             os.mkdir('./audio_record', 0o755)
         # 复制录下的音频到自己的电脑上
-        cmd = "sshpass -p kurakura326 scp nao@pepper.local:/home/nao/audio/recog.wav ./audio_record"
+        cmd = "sshpass -p xxxxxx scp nao@pepper.local:/home/nao/audio/recog.wav ./audio_record"
         os.system(cmd)
         self.recog_result = baidu_recognition_text.main("./audio_record/recog.wav").lower()
         print (Fore.GREEN + ('[I]: 识别结果为：' + self.recog_result))
 
     def take_picture(self):
         self.PhotoCapture.takePictures(3, '/home/nao/picture', 'party')
-        cmd = "sshpass -p kurakura326 scp nao@pepper.local:/home/nao/picture/party_0.jpg ./person_image"
+        cmd = "sshpass -p xxxxxx scp nao@pepper.local:/home/nao/picture/party_0.jpg ./person_image"
         os.system(cmd)
         self.gender, self.age, self.skin_color = face_feature.gender("./person_image/party_0.jpg", self.upper_wear, self.upper_color, self.person_num)
         if self.gender == "none":
@@ -342,7 +342,7 @@ class find_my_mate():
         cv2.putText(img, "Position:"+posture+" next to the "+str(position), (10, 160), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 3)
         cv2.imwrite(img_name, img)
         # 将当前人的信息传输到Pepper上
-        cmd = "sshpass -p kurakura326 scp ./person_result" + str(self.person_num) + \
+        cmd = "sshpass -p xxxxxx scp ./person_result" + str(self.person_num) + \
               ".jpg nao@pepper.local:~/.local/share/PackageManager/apps/boot-config/html"
         os.system(cmd)
 
